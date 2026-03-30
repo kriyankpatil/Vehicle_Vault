@@ -1,0 +1,60 @@
+<footer class="footer-vv">
+    <div class="container-vv">
+        <div class="row g-5">
+            <!-- Brand Column -->
+            <div class="col-lg-4">
+                <div class="footer-brand">
+                    <i class="fas fa-car-side me-2" style="color:#60a5fa;"></i>Vehicle Vault
+                </div>
+                <p class="footer-tagline">India's most trusted platform to discover, compare, and find your perfect car. Explore 100+ vehicles from all major brands.</p>
+                <div class="d-flex gap-3 mt-4">
+                    <a href="#" class="d-flex align-items-center justify-content-center" style="width:38px;height:38px;background:rgba(255,255,255,0.08);border-radius:50%;color:rgba(255,255,255,0.5);font-size:0.9rem;transition:all 0.2s ease;" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="d-flex align-items-center justify-content-center" style="width:38px;height:38px;background:rgba(255,255,255,0.08);border-radius:50%;color:rgba(255,255,255,0.5);font-size:0.9rem;transition:all 0.2s ease;" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="d-flex align-items-center justify-content-center" style="width:38px;height:38px;background:rgba(255,255,255,0.08);border-radius:50%;color:rgba(255,255,255,0.5);font-size:0.9rem;transition:all 0.2s ease;" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Explore Column -->
+            <div class="col-6 col-lg-2">
+                <div class="footer-section-title">Explore</div>
+                <a href="{% url 'cars:car_list' %}" class="footer-link">Browse Cars</a>
+                <a href="{% url 'comparisons:compare_table' %}" class="footer-link">Compare Vehicles</a>
+                <a href="{% url 'favorites:favorite_list' %}" class="footer-link">Saved Wishlist</a>
+                <a href="{% url 'smart_match' %}" class="footer-link">Smart Match</a>
+            </div>
+
+            <!-- Brands Column -->
+            <div class="col-6 col-lg-2">
+                <div class="footer-section-title">Top Brands</div>
+                <a href="{% url 'cars:car_list' %}?brand=Tata" class="footer-link">Tata</a>
+                <a href="{% url 'cars:car_list' %}?brand=Mahindra" class="footer-link">Mahindra</a>
+                <a href="{% url 'cars:car_list' %}?brand=Hyundai" class="footer-link">Hyundai</a>
+                <a href="{% url 'cars:car_list' %}?brand=Maruti+Suzuki" class="footer-link">Maruti Suzuki</a>
+                <a href="{% url 'cars:car_list' %}?brand=Kia" class="footer-link">Kia</a>
+            </div>
+
+            <!-- Account Column -->
+            <div class="col-6 col-lg-2">
+                <div class="footer-section-title">Account</div>
+                {% if user.is_authenticated %}
+                <span class="footer-link" style="color:rgba(255,255,255,0.55);">Logged in as {{ user.username }}</span>
+                {% else %}
+                <a href="{% url 'login' %}" class="footer-link">Log In</a>
+                <a href="{% url 'register' %}" class="footer-link">Sign Up</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr class="footer-divider">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <p class="footer-copy mb-0">© 2026 Vehicle Vault. All Rights Reserved. | GTU Final Year Project.</p>
+            <p class="footer-copy mb-0">Built with ❤️ for Indian Car Buyers</p>
+        </div>
+    </div>
+</footer>

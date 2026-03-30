@@ -1,0 +1,357 @@
+[
+    {
+        "title": "Maruti Suzuki Swift", "brand": "Maruti Suzuki", "model": "Swift", "price": 649000, "year": 2024, "mileage": 10,
+        "description": "Fun, peppy, and India's most loved hatchback offering incredible fuel efficiency.",
+        "engine": "1.2L Z-Series", "fuel_type": "Petrol", "transmission": "Manual / AMT", "safety": 3, "wiki": "Suzuki_Swift"
+    },
+    {
+        "title": "Maruti Suzuki Baleno", "brand": "Maruti Suzuki", "model": "Baleno", "price": 666000, "year": 2024, "mileage": 500,
+        "description": "Premium hatchback with segment-first features and a spacious cabin.",
+        "engine": "1.2L DualJet", "fuel_type": "Petrol", "transmission": "Manual / AMT", "safety": 0, "wiki": "Suzuki_Baleno"
+    },
+    {
+        "title": "Maruti Suzuki Dzire", "brand": "Maruti Suzuki", "model": "Dzire", "price": 656000, "year": 2024, "mileage": 1200,
+        "description": "The best-selling compact sedan that blends comfort with supreme mileage.",
+        "engine": "1.2L K-Series", "fuel_type": "Petrol / CNG", "transmission": "Manual / AMT", "safety": 2, "wiki": "Suzuki_Dzire"
+    },
+    {
+        "title": "Maruti Suzuki Brezza", "brand": "Maruti Suzuki", "model": "Brezza", "price": 834000, "year": 2024, "mileage": 8000,
+        "description": "A refined, tech-loaded compact SUV built for the city jungle.",
+        "engine": "1.5L K15C Smart Hybrid", "fuel_type": "Mild Hybrid", "transmission": "Manual / Auto", "safety": 4, "wiki": "Suzuki_Vitara_Brezza"
+    },
+    {
+        "title": "Maruti Suzuki Grand Vitara", "brand": "Maruti Suzuki", "model": "Grand Vitara", "price": 1099000, "year": 2024, "mileage": 6000,
+        "description": "A modern mid-size SUV featuring a strong hybrid powertrain for unbelievable fuel economy.",
+        "engine": "1.5L Strong Hybrid", "fuel_type": "Hybrid", "transmission": "e-CVT", "safety": 4, "wiki": "Suzuki_Grand_Vitara_(2022)"
+    },
+    {
+        "title": "Maruti Suzuki Fronx", "brand": "Maruti Suzuki", "model": "Fronx", "price": 751000, "year": 2024, "mileage": 3000,
+        "description": "A sporty compact crossover turning heads with its coupe-like roofline.",
+        "engine": "1.0L Boosterjet Turbo", "fuel_type": "Petrol", "transmission": "Manual / Auto", "safety": 0, "wiki": "Suzuki_Fronx"
+    },
+    {
+        "title": "Maruti Suzuki Jimny", "brand": "Maruti Suzuki", "model": "Jimny", "price": 1274000, "year": 2024, "mileage": 200,
+        "description": "A legendary, lightweight off-roader configured with a 5-door layout for India.",
+        "engine": "1.5L K15B", "fuel_type": "Petrol", "transmission": "Manual / Auto", "safety": 3, "wiki": "Suzuki_Jimny"
+    },
+    {
+        "title": "Maruti Suzuki Ertiga", "brand": "Maruti Suzuki", "model": "Ertiga", "price": 869000, "year": 2023, "mileage": 15000,
+        "description": "India's favorite 7-seater MPV, perfect for large families.",
+        "engine": "1.5L K15C Smart Hybrid", "fuel_type": "Petrol / CNG", "transmission": "Manual / Auto", "safety": 3, "wiki": "Suzuki_Ertiga"
+    },
+    {
+        "title": "Maruti Suzuki XL6", "brand": "Maruti Suzuki", "model": "XL6", "price": 1161000, "year": 2023, "mileage": 9000,
+        "description": "A premium 6-seater MPV offering captain seats and a robust design.",
+        "engine": "1.5L K15C Smart Hybrid", "fuel_type": "Petrol", "transmission": "Manual / Auto", "safety": 3, "wiki": "Suzuki_Ertiga"
+    },
+    {
+        "title": "Maruti Suzuki Invicto", "brand": "Maruti Suzuki", "model": "Invicto", "price": 2521000, "year": 2024, "mileage": 500,
+        "description": "The flagship premium strong-hybrid MPV based on the Toyota Hycross.",
+        "engine": "2.0L Strong Hybrid", "fuel_type": "Hybrid", "transmission": "e-CVT", "safety": 0, "wiki": "Toyota_Innova"
+    },
+    {
+        "title": "Hyundai Creta", "brand": "Hyundai", "model": "Creta", "price": 1100000, "year": 2024, "mileage": 1200,
+        "description": "The undisputed king of the compact SUV segment with premium features.",
+        "engine": "1.5L Turbo GDi", "fuel_type": "Petrol / Diesel", "transmission": "Manual / DCT / Auto", "safety": 3, "wiki": "Hyundai_Creta"
+    },
+    {
+        "title": "Hyundai Venue", "brand": "Hyundai", "model": "Venue", "price": 794000, "year": 2024, "mileage": 4500,
+        "description": "A connected and stylish sub-compact SUV.",
+        "engine": "1.0L Turbo GDi", "fuel_type": "Petrol / Diesel", "transmission": "Manual / DCT", "safety": 4, "wiki": "Hyundai_Venue"
+    },
+    {
+        "title": "Hyundai Verna", "brand": "Hyundai", "model": "Verna", "price": 1100000, "year": 2024, "mileage": 800,
+        "description": "A stunning, futuristic sedan offering the most powerful engine in its class.",
+        "engine": "1.5L Turbo GDi", "fuel_type": "Petrol", "transmission": "Manual / DCT", "safety": 5, "wiki": "Hyundai_Verna"
+    },
+    {
+        "title": "Hyundai i20", "brand": "Hyundai", "model": "i20", "price": 704000, "year": 2024, "mileage": 2500,
+        "description": "A premium hatchback that stands out with its sharp N-Line aesthetics.",
+        "engine": "1.2L Kappa", "fuel_type": "Petrol", "transmission": "Manual / CVT", "safety": 3, "wiki": "Hyundai_i20"
+    },
+    {
+        "title": "Hyundai Grand i10 Nios", "brand": "Hyundai", "model": "Grand i10 Nios", "price": 592000, "year": 2024, "mileage": 14000,
+        "description": "A zippy, feature-rich city car with excellent ride quality.",
+        "engine": "1.2L Kappa", "fuel_type": "Petrol / CNG", "transmission": "Manual / AMT", "safety": 2, "wiki": "Hyundai_i10"
+    },
+    {
+        "title": "Hyundai Aura", "brand": "Hyundai", "model": "Aura", "price": 649000, "year": 2023, "mileage": 18000,
+        "description": "A practical and well-equipped compact sedan.",
+        "engine": "1.2L Kappa", "fuel_type": "Petrol / CNG", "transmission": "Manual / AMT", "safety": 2, "wiki": "Hyundai_Aura"
+    },
+    {
+        "title": "Hyundai Alcazar", "brand": "Hyundai", "model": "Alcazar", "price": 1677000, "year": 2023, "mileage": 8000,
+        "description": "A luxurious 6/7 seater SUV built for long family road trips.",
+        "engine": "1.5L Turbo GDi", "fuel_type": "Petrol / Diesel", "transmission": "Manual / DCT / Auto", "safety": 0, "wiki": "Hyundai_Alcazar"
+    },
+    {
+        "title": "Hyundai Tucson", "brand": "Hyundai", "model": "Tucson", "price": 2902000, "year": 2024, "mileage": 4000,
+        "description": "A global premium SUV with a parametric dynamics design.",
+        "engine": "2.0L CRDi Diesel", "fuel_type": "Diesel", "transmission": "8-speed Auto", "safety": 5, "wiki": "Hyundai_Tucson"
+    },
+    {
+        "title": "Hyundai Exter", "brand": "Hyundai", "model": "Exter", "price": 613000, "year": 2024, "mileage": 100,
+        "description": "A micro-SUV packing 6 airbags and a robust stance.",
+        "engine": "1.2L Kappa", "fuel_type": "Petrol", "transmission": "Manual / AMT", "safety": 0, "wiki": "Hyundai_Exter"
+    },
+    {
+        "title": "Hyundai Ioniq 5", "brand": "Hyundai", "model": "Ioniq 5", "price": 4605000, "year": 2024, "mileage": 50,
+        "description": "An award-winning flagship EV with retro-futuristic pixel design.",
+        "engine": "Electric Motor (72.6 kWh)", "fuel_type": "Electric", "transmission": "Single Speed", "safety": 5, "wiki": "Hyundai_Ioniq_5"
+    },
+    {
+        "title": "Tata Nexon", "brand": "Tata Motors", "model": "Nexon", "price": 815000, "year": 2024, "mileage": 1000,
+        "description": "A bold, aggressively styled compact SUV holding a 5-star safety rating.",
+        "engine": "1.2L Revotron Turbo", "fuel_type": "Petrol / Diesel", "transmission": "Manual / DCA", "safety": 5, "wiki": "Tata_Nexon"
+    },
+    {
+        "title": "Tata Punch", "brand": "Tata Motors", "model": "Punch", "price": 613000, "year": 2024, "mileage": 4000,
+        "description": "India's highest selling micro-SUV that vibes on every terrain.",
+        "engine": "1.2L Revotron", "fuel_type": "Petrol / CNG", "transmission": "Manual / AMT", "safety": 5, "wiki": "Tata_Punch"
+    },
+    {
+        "title": "Tata Harrier", "brand": "Tata Motors", "model": "Harrier", "price": 1549000, "year": 2024, "mileage": 1500,
+        "description": "A premium SUV built on Land Rover's D8 architecture.",
+        "engine": "2.0L Kryotec Diesel", "fuel_type": "Diesel", "transmission": "Manual / Auto", "safety": 5, "wiki": "Tata_Harrier"
+    },
+    {
+        "title": "Tata Safari", "brand": "Tata Motors", "model": "Safari", "price": 1619000, "year": 2024, "mileage": 3000,
+        "description": "The legendary 3-row SUV returns with unmatched street presence.",
+        "engine": "2.0L Kryotec Diesel", "fuel_type": "Diesel", "transmission": "Manual / Auto", "safety": 5, "wiki": "Tata_Safari"
+    },
+    {
+        "title": "Tata Tiago", "brand": "Tata Motors", "model": "Tiago", "price": 565000, "year": 2024, "mileage": 12000,
+        "description": "A solid, safe, and fun-handling hatchback.",
+        "engine": "1.2L Revotron", "fuel_type": "Petrol / CNG", "transmission": "Manual / AMT", "safety": 4, "wiki": "Tata_Tiago"
+    },
+    {
+        "title": "Tata Tigor", "brand": "Tata Motors", "model": "Tigor", "price": 630000, "year": 2024, "mileage": 16000,
+        "description": "A stylish fastback-design compact sedan.",
+        "engine": "1.2L Revotron", "fuel_type": "Petrol / CNG", "transmission": "Manual / AMT", "safety": 4, "wiki": "Tata_Tigor"
+    },
+    {
+        "title": "Tata Altroz", "brand": "Tata Motors", "model": "Altroz", "price": 665000, "year": 2024, "mileage": 8000,
+        "description": "The gold standard of premium hatchbacks in India.",
+        "engine": "1.2L Revotron", "fuel_type": "Petrol / Diesel", "transmission": "Manual / DCA", "safety": 5, "wiki": "Tata_Altroz"
+    },
+    {
+        "title": "Tata Nexon EV", "brand": "Tata Motors", "model": "Nexon EV", "price": 1449000, "year": 2024, "mileage": 200,
+        "description": "India's highest selling electric SUV with V2L tech.",
+        "engine": "Electric Motor (40.5 kWh)", "fuel_type": "Electric", "transmission": "Single Speed", "safety": 5, "wiki": "Tata_Nexon"
+    },
+    {
+        "title": "Tata Punch EV", "brand": "Tata Motors", "model": "Punch EV", "price": 1099000, "year": 2024, "mileage": 100,
+        "description": "An electric urban crawler built on the new acti.ev architecture.",
+        "engine": "Electric Motor (35 kWh)", "fuel_type": "Electric", "transmission": "Single Speed", "safety": 5, "wiki": "Tata_Punch"
+    },
+    {
+        "title": "Tata Curvv EV", "brand": "Tata Motors", "model": "Curvv EV", "price": 1749000, "year": 2024, "mileage": 50,
+        "description": "A highly anticipated electric coupe SUV breaking segment norms.",
+        "engine": "Electric Motor", "fuel_type": "Electric", "transmission": "Single Speed", "safety": 5, "wiki": "Tata_Curvv"
+    },
+    {
+        "title": "Mahindra XUV700", "brand": "Mahindra", "model": "XUV700", "price": 1399000, "year": 2024, "mileage": 8000,
+        "description": "A sci-fi SUV offering ADAS Level 2 and monstrous engines.",
+        "engine": "2.0L mStallion Turbo", "fuel_type": "Petrol / Diesel", "transmission": "Manual / Auto", "safety": 5, "wiki": "Mahindra_XUV700"
+    },
+    {
+        "title": "Mahindra Scorpio-N", "brand": "Mahindra", "model": "Scorpio-N", "price": 1360000, "year": 2024, "mileage": 12000,
+        "description": "The Big Daddy of SUVs. Body-on-frame perfection.",
+        "engine": "2.2L mHawk Diesel", "fuel_type": "Diesel / Petrol", "transmission": "Manual / Auto", "safety": 5, "wiki": "Mahindra_Scorpio"
+    },
+    {
+        "title": "Mahindra Thar", "brand": "Mahindra", "model": "Thar", "price": 1125000, "year": 2024, "mileage": 5000,
+        "description": "A pure, unadulterated 4x4 lifestyle off-roader.",
+        "engine": "2.0L mStallion", "fuel_type": "Petrol / Diesel", "transmission": "Manual / Auto", "safety": 4, "wiki": "Mahindra_Thar"
+    },
+    {
+        "title": "Mahindra XUV 3XO", "brand": "Mahindra", "model": "XUV 3XO", "price": 749000, "year": 2024, "mileage": 1500,
+        "description": "A wildly overhauled compact SUV with panoramic sunroof.",
+        "engine": "1.2L mStallion TGDi", "fuel_type": "Petrol / Diesel", "transmission": "Manual / Auto", "safety": 5, "wiki": "Mahindra_XUV300"
+    },
+    {
+        "title": "Mahindra Bolero Neo", "brand": "Mahindra", "model": "Bolero Neo", "price": 990000, "year": 2023, "mileage": 18000,
+        "description": "A tough, old-school RWD compact SUV.",
+        "engine": "1.5L mHawk75", "fuel_type": "Diesel", "transmission": "Manual", "safety": 1, "wiki": "Mahindra_Bolero_Neo"
+    },
+    {
+        "title": "Mahindra Scorpio Classic", "brand": "Mahindra", "model": "Scorpio Classic", "price": 1359000, "year": 2024, "mileage": 25000,
+        "description": "The iconic silhouette, still ruling rural India.",
+        "engine": "2.2L mHawk", "fuel_type": "Diesel", "transmission": "Manual", "safety": 0, "wiki": "Mahindra_Scorpio"
+    },
+    {
+        "title": "Mahindra XUV400", "brand": "Mahindra", "model": "XUV400", "price": 1549000, "year": 2024, "mileage": 5000,
+        "description": "Mahindra's all-electric C-segment SUV offering blazing fast acceleration.",
+        "engine": "Electric Motor (39.5 kWh)", "fuel_type": "Electric", "transmission": "Single Speed", "safety": 0, "wiki": "Mahindra_XUV400"
+    },
+    {
+        "title": "Mahindra Marazzo", "brand": "Mahindra", "model": "Marazzo", "price": 1412000, "year": 2021, "mileage": 35000,
+        "description": "A shark-inspired spacious 7-seater MPV.",
+        "engine": "1.5L D15 Diesel", "fuel_type": "Diesel", "transmission": "Manual", "safety": 4, "wiki": "Mahindra_Marazzo"
+    },
+    {
+        "title": "Mahindra Bolero", "brand": "Mahindra", "model": "Bolero", "price": 979000, "year": 2024, "mileage": 42000,
+        "description": "The ultimate utilitarian workhorse of India.",
+        "engine": "1.5L mHawk75", "fuel_type": "Diesel", "transmission": "Manual", "safety": 0, "wiki": "Mahindra_Bolero"
+    },
+    {
+        "title": "Mahindra Thar Roxx", "brand": "Mahindra", "model": "Thar Roxx", "price": 1500000, "year": 2024, "mileage": 100,
+        "description": "The highly anticipated 5-door version of the legendary Thar.",
+        "engine": "2.0L mStallion", "fuel_type": "Petrol / Diesel", "transmission": "Manual / Auto", "safety": 0, "wiki": "Mahindra_Thar"
+    },
+    {
+        "title": "Toyota Innova Crysta", "brand": "Toyota", "model": "Innova Crysta", "price": 1999000, "year": 2024, "mileage": 50000,
+        "description": "The unkillable MPV trusted unconditionally by Indians.",
+        "engine": "2.4L Diesel", "fuel_type": "Diesel", "transmission": "Manual", "safety": 5, "wiki": "Toyota_Innova"
+    },
+    {
+        "title": "Toyota Innova Hycross", "brand": "Toyota", "model": "Innova Hycross", "price": 1892000, "year": 2024, "mileage": 8000,
+        "description": "A refined, monocoque strong-hybrid MPV with unmatched luxury.",
+        "engine": "2.0L Strong Hybrid", "fuel_type": "Hybrid", "transmission": "e-CVT", "safety": 0, "wiki": "Toyota_Innova"
+    },
+    {
+        "title": "Toyota Fortuner", "brand": "Toyota", "model": "Fortuner", "price": 3343000, "year": 2024, "mileage": 18000,
+        "description": "The king of the premium SUV segment, dominating Indian roads.",
+        "engine": "2.8L Diesel", "fuel_type": "Diesel", "transmission": "Manual / Auto", "safety": 5, "wiki": "Toyota_Fortuner"
+    },
+    {
+        "title": "Toyota Urban Cruiser Hyryder", "brand": "Toyota", "model": "Hyryder", "price": 1114000, "year": 2024, "mileage": 9000,
+        "description": "A hybrid mid-size SUV co-developed with Suzuki.",
+        "engine": "1.5L Strong Hybrid", "fuel_type": "Hybrid", "transmission": "e-CVT", "safety": 4, "wiki": "Toyota_Urban_Cruiser_Hyryder"
+    },
+    {
+        "title": "Toyota Glanza", "brand": "Toyota", "model": "Glanza", "price": 686000, "year": 2024, "mileage": 5000,
+        "description": "A premium hatchback offering bulletproof Toyota reliability.",
+        "engine": "1.2L DualJet", "fuel_type": "Petrol / CNG", "transmission": "Manual / AMT", "safety": 0, "wiki": "Toyota_Starlet_(A150)"
+    },
+    {
+        "title": "Toyota Rumion", "brand": "Toyota", "model": "Rumion", "price": 1044000, "year": 2024, "mileage": 3000,
+        "description": "A versatile and affordable 7-seater MPV (Ertiga-based).",
+        "engine": "1.5L K15C", "fuel_type": "Petrol / CNG", "transmission": "Manual / Auto", "safety": 3, "wiki": "Suzuki_Ertiga"
+    },
+    {
+        "title": "Toyota Hilux", "brand": "Toyota", "model": "Hilux", "price": 3040000, "year": 2023, "mileage": 14000,
+        "description": "The globally renowned, indestructible pickup truck.",
+        "engine": "2.8L Diesel", "fuel_type": "Diesel", "transmission": "Manual / Auto", "safety": 5, "wiki": "Toyota_Hilux"
+    },
+    {
+        "title": "Toyota Camry", "brand": "Toyota", "model": "Camry", "price": 4617000, "year": 2024, "mileage": 2000,
+        "description": "A hybrid luxury sedan that isolates you from the world.",
+        "engine": "2.5L Dynamic Force Hybrid", "fuel_type": "Hybrid", "transmission": "e-CVT", "safety": 5, "wiki": "Toyota_Camry"
+    },
+    {
+        "title": "Toyota Vellfire", "brand": "Toyota", "model": "Vellfire", "price": 11990000, "year": 2024, "mileage": 100,
+        "description": "An ultra-luxurious VIP lounge on wheels.",
+        "engine": "2.5L Strong Hybrid", "fuel_type": "Hybrid", "transmission": "e-CVT", "safety": 0, "wiki": "Toyota_Vellfire"
+    },
+    {
+        "title": "Toyota Land Cruiser 300", "brand": "Toyota", "model": "Land Cruiser 300", "price": 21000000, "year": 2024, "mileage": 100,
+        "description": "The ultimate status symbol SUV. Goes anywhere, anytime.",
+        "engine": "3.3L Twin-Turbo V6 Diesel", "fuel_type": "Diesel", "transmission": "10-speed Auto", "safety": 5, "wiki": "Toyota_Land_Cruiser"
+    },
+    {
+        "title": "Kia Seltos", "brand": "Kia", "model": "Seltos", "price": 1090000, "year": 2024, "mileage": 3000,
+        "description": "A stunning, tech-heavy SUV that defined the segment.",
+        "engine": "1.5L Turbo GDi", "fuel_type": "Petrol / Diesel", "transmission": "Manual / DCT / Auto", "safety": 3, "wiki": "Kia_Seltos"
+    },
+    {
+        "title": "Kia Sonet", "brand": "Kia", "model": "Sonet", "price": 799000, "year": 2024, "mileage": 2000,
+        "description": "A compact SUV dripping with attitude and features.",
+        "engine": "1.0L Turbo GDi", "fuel_type": "Petrol / Diesel", "transmission": "Manual / DCT / Auto", "safety": 0, "wiki": "Kia_Sonet"
+    },
+    {
+        "title": "Kia Carens", "brand": "Kia", "model": "Carens", "price": 1045000, "year": 2024, "mileage": 6000,
+        "description": "A recreational vehicle bridging the gap between an SUV and MPV.",
+        "engine": "1.5L Turbo GDi", "fuel_type": "Petrol / Diesel", "transmission": "Manual / DCT / Auto", "safety": 3, "wiki": "Kia_Carens"
+    },
+    {
+        "title": "Kia EV6", "brand": "Kia", "model": "EV6", "price": 6095000, "year": 2024, "mileage": 500,
+        "description": "A blazing fast, luxury electric crossover that turns heads globally.",
+        "engine": "Electric Motor (77.4 kWh)", "fuel_type": "Electric", "transmission": "Single Speed", "safety": 5, "wiki": "Kia_EV6"
+    },
+    {
+        "title": "Kia Carnival", "brand": "Kia", "model": "Carnival", "price": 6390000, "year": 2024, "mileage": 100,
+        "description": "An opulent, cavernous luxury MPV for the elite.",
+        "engine": "2.2L Diesel", "fuel_type": "Diesel", "transmission": "8-speed Auto", "safety": 5, "wiki": "Kia_Carnival"
+    },
+    {
+        "title": "Kia EV9", "brand": "Kia", "model": "EV9", "price": 12900000, "year": 2024, "mileage": 0,
+        "description": "Kia's massive, futuristic electric flagship SUV.",
+        "engine": "Electric Motor (99.8 kWh)", "fuel_type": "Electric", "transmission": "Single Speed", "safety": 5, "wiki": "Kia_EV9"
+    },
+    {
+        "title": "MG Hector", "brand": "MG Motor", "model": "Hector", "price": 1399000, "year": 2024, "mileage": 12000,
+        "description": "A feature-loaded mid-size SUV known for its massive portrait infotainment screen.",
+        "engine": "2.0L Turbo Diesel", "fuel_type": "Diesel / Petrol", "transmission": "Manual / CVT", "safety": 0, "wiki": "MG_Hector"
+    },
+    {
+        "title": "MG Astor", "brand": "MG Motor", "model": "Astor", "price": 998000, "year": 2024, "mileage": 4000,
+        "description": "An AI-enabled compact SUV equipped with Level 2 ADAS.",
+        "engine": "1.3L Turbo Petrol", "fuel_type": "Petrol", "transmission": "Manual / Auto", "safety": 0, "wiki": "MG_ZS"
+    },
+    {
+        "title": "MG Gloster", "brand": "MG Motor", "model": "Gloster", "price": 3880000, "year": 2024, "mileage": 21000,
+        "description": "A gargantuan premium SUV offering unparalleled interior space.",
+        "engine": "2.0L Twin-Turbo Diesel", "fuel_type": "Diesel", "transmission": "8-speed Auto", "safety": 5, "wiki": "Maxus_D90"
+    },
+    {
+        "title": "MG ZS EV", "brand": "MG Motor", "model": "ZS EV", "price": 1898000, "year": 2024, "mileage": 5000,
+        "description": "A highly practical and reliable electric SUV.",
+        "engine": "Electric Motor (50.3 kWh)", "fuel_type": "Electric", "transmission": "Single Speed", "safety": 5, "wiki": "MG_ZS"
+    },
+    {
+        "title": "MG Comet EV", "brand": "MG Motor", "model": "Comet EV", "price": 699000, "year": 2024, "mileage": 1000,
+        "description": "A quirky, futuristic, strictly-urban micro electric vehicle.",
+        "engine": "Electric Motor (17.3 kWh)", "fuel_type": "Electric", "transmission": "Single Speed", "safety": 0, "wiki": "Wuling_Air_EV"
+    },
+    {
+        "title": "Honda City", "brand": "Honda", "model": "City", "price": 1182000, "year": 2024, "mileage": 4500,
+        "description": "The golden standard of mid-size sedans in India for over two decades.",
+        "engine": "1.5L i-VTEC", "fuel_type": "Petrol", "transmission": "Manual / CVT", "safety": 4, "wiki": "Honda_City"
+    },
+    {
+        "title": "Honda Elevate", "brand": "Honda", "model": "Elevate", "price": 1169000, "year": 2024, "mileage": 2000,
+        "description": "A bold, upright SUV offering class-leading ground clearance.",
+        "engine": "1.5L i-VTEC", "fuel_type": "Petrol", "transmission": "Manual / CVT", "safety": 0, "wiki": "Honda_Elevate"
+    },
+    {
+        "title": "Honda Amaze", "brand": "Honda", "model": "Amaze", "price": 720000, "year": 2024, "mileage": 8000,
+        "description": "A highly capable and comfortable sub-4-meter sedan.",
+        "engine": "1.2L i-VTEC", "fuel_type": "Petrol", "transmission": "Manual / CVT", "safety": 4, "wiki": "Honda_Amaze"
+    },
+    {
+        "title": "Honda City e:HEV", "brand": "Honda", "model": "City Hybrid", "price": 1900000, "year": 2024, "mileage": 1500,
+        "description": "A strong-hybrid version of the beloved City sedan.",
+        "engine": "1.5L Atkinson Cycle Hybrid", "fuel_type": "Hybrid", "transmission": "e-CVT", "safety": 0, "wiki": "Honda_City"
+    },
+    {
+        "title": "Volkswagen Virtus", "brand": "Volkswagen", "model": "Virtus", "price": 1156000, "year": 2024, "mileage": 3000,
+        "description": "A beautifully sculpted, immensely safe and fun-to-drive sedan.",
+        "engine": "1.5L TSI EVO", "fuel_type": "Petrol", "transmission": "Manual / DSG", "safety": 5, "wiki": "Volkswagen_Virtus"
+    },
+    {
+        "title": "Volkswagen Taigun", "brand": "Volkswagen", "model": "Taigun", "price": 1170000, "year": 2024, "mileage": 5500,
+        "description": "A sporty, German-engineered compact SUV built heavily for performance.",
+        "engine": "1.5L TSI EVO", "fuel_type": "Petrol", "transmission": "Manual / DSG", "safety": 5, "wiki": "Volkswagen_Taigun"
+    },
+    {
+        "title": "Volkswagen Tiguan", "brand": "Volkswagen", "model": "Tiguan", "price": 3517000, "year": 2023, "mileage": 18000,
+        "description": "A premium SUV offering robust build quality and AWD capabilities.",
+        "engine": "2.0L TSI", "fuel_type": "Petrol", "transmission": "7-speed DSG", "safety": 5, "wiki": "Volkswagen_Tiguan"
+    },
+    {
+        "title": "Skoda Slavia", "brand": "Skoda", "model": "Slavia", "price": 1153000, "year": 2024, "mileage": 2000,
+        "description": "A muscular and elegant sedan offering class-leading safety (5 stars).",
+        "engine": "1.5L TSI EVO", "fuel_type": "Petrol", "transmission": "Manual / DSG", "safety": 5, "wiki": "Skoda_Slavia"
+    },
+    {
+        "title": "Skoda Kushaq", "brand": "Skoda", "model": "Kushaq", "price": 1089000, "year": 2024, "mileage": 6000,
+        "description": "An agile, fun, and safe compact SUV engineered specifically for India.",
+        "engine": "1.5L TSI EVO", "fuel_type": "Petrol", "transmission": "Manual / DSG", "safety": 5, "wiki": "Skoda_Kushaq"
+    },
+    {
+        "title": "Skoda Kodiaq", "brand": "Skoda", "model": "Kodiaq", "price": 3999000, "year": 2023, "mileage": 12000,
+        "description": "A luxurious and potent 4x4 7-seater SUV.",
+        "engine": "2.0L TSI", "fuel_type": "Petrol", "transmission": "7-speed DSG", "safety": 5, "wiki": "Skoda_Kodiaq"
+    }
+]

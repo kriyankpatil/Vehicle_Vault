@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm rounded-4 p-5">
+                <i class="fas fa-paper-plane fa-3x text-primary mb-4"></i>
+                <h2 class="fw-bold mb-3">Check Your Email</h2>
+                <p class="text-muted mb-4">We've sent a verification link to your email address. Please click the link to activate your account.</p>
+                <a href="{% url 'login' %}" class="btn btn-outline-primary rounded-pill px-4">Go to Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

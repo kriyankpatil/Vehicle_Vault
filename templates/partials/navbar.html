@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg glass-nav fixed-top py-3" id="vv-navbar">
+    <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home' %}">
+            <i class="fa-solid fa-car-side brand-icon fs-5"></i>
+            <span>Vehicle Vault</span>
+        </a>
+
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+            <i class="fas fa-bars text-dark"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center gap-1">
+                <li class="nav-item">
+                    <a class="nav-link-vv nav-link {% if request.resolver_match.url_name == 'car_list' %}active{% endif %}" href="{% url 'cars:car_list' %}">
+                        <i class="fas fa-th-large me-1 small"></i> Browse Cars
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link-vv nav-link" href="{% url 'comparisons:compare_table' %}">
+                        <i class="fas fa-scale-balanced me-1 small"></i> Compare
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link-vv nav-link" href="{% url 'favorites:favorite_list' %}">
+                        <i class="far fa-heart me-1 small"></i> Saved
+                    </a>
+                </li>
+
+                <li class="nav-item ms-3">
+                    {% if user.is_authenticated %}
+                    <div class="dropdown">
+                        <button class="btn btn-ghost-vv dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle text-primary"></i>
+                            <span class="fw-bold" style="font-size:0.88rem;">{{ user.username }}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 p-2 mt-2" style="min-width: 200px;">
+                            {% if user.is_staff %}
+                            <li>
+                                <a class="dropdown-item rounded-2 d-flex align-items-center gap-2 py-2" href="/admin/">
+                                    <i class="fas fa-cog text-muted"></i> Admin Panel
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item rounded-2 d-flex align-items-center gap-2 py-2" href="{% url 'analytics_dashboard' %}">
+                                    <i class="fas fa-chart-pie" style="color:#7c3aed;"></i> Dashboard
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-1"></li>
+                            {% endif %}
+                            <li>
+                                <form action="{% url 'logout' %}" method="post" class="m-0">
+                                    {% csrf_token %}
+                                    <button class="dropdown-item rounded-2 d-flex align-items-center gap-2 py-2 text-danger" type="submit">
+                                        <i class="fas fa-sign-out-alt"></i> Log Out
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div class="d-flex align-items-center gap-2">
+                        <a href="{% url 'login' %}" class="btn-ghost-vv px-4 py-2 rounded-pill text-decoration-none fw-bold" style="font-size:0.88rem;">Log In</a>
+                        <a href="{% url 'register' %}" class="btn-primary-vv px-4 py-2" style="font-size:0.88rem;">Sign Up</a>
+                    </div>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

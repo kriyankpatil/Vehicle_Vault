@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load currency_tags %}
+
+{% block title %}Compare Vehicles — Vehicle Vault{% endblock %}
+
+{% block content %}
+<div class="container-vv py-4">
+
+    <!-- Header -->
+    <div class="page-header mb-4">
+        <h1 class="page-header-title">
+            <i class="fas fa-scale-balanced text-primary me-3" style="font-size:1.4rem;"></i>Compare Vehicles
+        </h1>
+        <a href="{% url 'cars:car_list' %}" class="btn-ghost-vv">
+            <i class="fas fa-plus me-1"></i> Browse More Cars
+        </a>
+    </div>
+
+    {% if cars %}
+    <div class="compare-wrapper">
+        <table class="compare-table">
+            <!-- Header row: images -->
+            <thead>
+                <tr>
+                    <th style="text-align:left;width:160px;border-radius:20px 0 0 0;">
+                        <span style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--slate-400);">Features</span>
+                    </th>
+                    {% for car in cars %}
+                    <th>
+                        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+                            {% if car.images.first %}
+                            <img src="{{ car.images.first.image.url }}" alt="{{ car.title }}" style="width:100%;max-width:180px;height:120px;object-fit:cover;border-radius:14px;">
+                            {% else %}
+                            <div style="width:180px;height:120px;background:var(--surface-low);border-radius:14px;display:grid;place-items:center;color:var(--slate-400);">
+                                <i class="fas fa-car fa-2x"></i>
+                            </div>
+                            {% endif %}
+                            <div style="font-weight:800;font-size:0.95rem;color:var(--slate-900);">{{ car.title }}</div>
+                            <div style="font-size:0.78rem;color:var(--slate-400);">{{ car.brand }}</div>
+                        </div>
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Price -->
+                <tr>
+                    <td class="row-label">Price</td>
+                    {% for car in cars %}
+                    <td class="{% if car.price == best_price %}compare-best{% endif %} text-center fw-bold" style="font-size:1.1rem;">
+                        <div style="color:{% if car.price == best_price %}#15803d{% else %}var(--primary-bright){% endif %}">₹{{ car.price|indian_lakhs }}</div>
+                        {% if car.price == best_price %}
+                        <div class="compare-best-label mt-1"><i class="fas fa-trophy me-1"></i>Best Value</div>
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td class="row-label">Year</td>
+                    {% for car in cars %}<td class="text-center fw-bold">{{ car.year }}</td>{% endfor %}
+                </tr>
+                <tr>
+                    <td class="row-label">Fuel Type</td>
+                    {% for car in cars %}<td class="text-center">{{ car.specifications.fuel_type|default:"—" }}</td>{% endfor %}
+                </tr>
+                <tr>
+                    <td class="row-label">Engine</td>
+                    {% for car in cars %}<td class="text-center">{{ car.specifications.engine|default:"—" }}</td>{% endfor %}
+                </tr>
+                <tr>
+                    <td class="row-label">Power</td>
+                    {% for car in cars %}<td class="text-center">{{ car.specifications.power|default:"—" }}</td>{% endfor %}
+                </tr>
+                <tr>
+                    <td class="row-label">Mileage</td>
+                    {% for car in cars %}<td class="text-center">{{ car.specifications.mileage|default:"—" }} {% if car.specifications.mileage %}km/l{% endif %}</td>{% endfor %}
+                </tr>
+                <tr>
+                    <td class="row-label">Transmission</td>
+                    {% for car in cars %}<td class="text-center">{{ car.specifications.transmission|default:"—" }}</td>{% endfor %}
+                </tr>
+                <tr>
+                    <td class="row-label">Seating</td>
+                    {% for car in cars %}<td class="text-center">{{ car.specifications.seating_capacity|default:"—" }}</td>{% endfor %}
+                </tr>
+                <tr>
+                    <td class="row-label">Safety Rating</td>
+                    {% for car in cars %}
+                    <td class="text-center {% if car.specifications.safety_rating == best_safety_val %}compare-best{% endif %}">
+                        <div class="stars">
+                            {% for i in "12345" %}{% if forloop.counter <= car.specifications.safety_rating %}⭐{% else %}☆{% endif %}{% endfor %}
+                        </div>
+                        {% if car.specifications.safety_rating == best_safety_val %}
+                        <div class="compare-best-label mt-1"><i class="fas fa-shield-alt me-1"></i>Top Safety</div>
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Key Advantages -->
+                <tr style="background:var(--surface-low);">
+                    <td class="row-label"><i class="fas fa-circle-check text-green-600 me-1" style="color:#16a34a;"></i>Key Advantages</td>
+                    {% for car in cars %}
+                    <td style="vertical-align:top;padding:16px;">
+                        <ul style="list-style:none;margin:0;padding:0;">
+                            {% for pro in car.pros %}
+                            <li style="font-size:0.82rem;color:var(--slate-600);margin-bottom:6px;display:flex;align-items:flex-start;gap:6px;">
+                                <i class="fas fa-plus" style="color:#16a34a;font-size:0.65rem;margin-top:3px;flex-shrink:0;"></i>{{ pro }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Considerations -->
+                <tr>
+                    <td class="row-label"><i class="fas fa-circle-exclamation me-1" style="color:#dc2626;"></i>Considerations</td>
+                    {% for car in cars %}
+                    <td style="vertical-align:top;padding:16px;">
+                        <ul style="list-style:none;margin:0;padding:0;">
+                            {% for con in car.cons %}
+                            <li style="font-size:0.82rem;color:var(--slate-600);margin-bottom:6px;display:flex;align-items:flex-start;gap:6px;">
+                                <i class="fas fa-minus" style="color:#dc2626;font-size:0.65rem;margin-top:3px;flex-shrink:0;"></i>{{ con }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr style="background:var(--surface-low);">
+                    <td></td>
+                    {% for car in cars %}
+                    <td class="text-center" style="padding:16px;border-radius:0 0 0 0;">
+                        <div style="display:flex;flex-direction:column;gap:8px;align-items:center;">
+                            <a href="{% url 'cars:car_detail' car.id %}" class="btn-primary-vv py-2 px-4" style="font-size:0.82rem;">
+                                Full Details
+                            </a>
+                            <form action="{% url 'comparisons:remove_compare' car.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-ghost-vv" style="font-size:0.78rem;color:#dc2626;border-color:#fecaca;">
+                                    <i class="fas fa-trash me-1" style="font-size:0.7rem;"></i> Remove
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    {% else %}
+    <!-- Empty State -->
+    <div style="text-align:center;padding:100px 20px;background:var(--surface-card);border-radius:24px;box-shadow:var(--shadow-card);">
+        <div style="font-size:5rem;margin-bottom:24px;">⚖️</div>
+        <h2 style="font-weight:900;letter-spacing:-0.03em;color:var(--slate-900);margin-bottom:12px;">Your comparison list is empty</h2>
+        <p style="color:var(--slate-400);font-size:1rem;margin-bottom:32px;">Browse cars and add them to compare side-by-side to make a smarter decision.</p>
+        <a href="{% url 'cars:car_list' %}" class="btn-primary-vv px-6 py-3" style="font-size:1rem;">
+            <i class="fas fa-search me-2"></i> Browse Cars
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

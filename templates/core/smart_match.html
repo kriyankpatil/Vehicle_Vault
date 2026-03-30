@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-8 text-center mb-5">
+        <h1 class="display-4 fw-bold">Smart Match</h1>
+        <p class="lead text-muted">Answer 3 simple questions to find your perfect vehicle</p>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="card-body p-5">
+                <form id="smartMatchForm" method="post" action="{% url 'smart_match' %}">
+                    {% csrf_token %}
+                    
+                    <!-- Step 1 -->
+                    <div class="step-container" id="step1">
+                        <h3 class="fw-bold mb-4">1. What is your preferred budget?</h3>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <input type="radio" class="btn-check" name="budget" id="budget1" value="under_15" required>
+                                <label class="btn btn-outline-primary w-100 p-4 rounded-3 fw-bold" for="budget1">
+                                    <i class="fas fa-wallet fa-2x mb-3 d-block"></i>
+                                    Under ₹15 Lakhs
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="radio" class="btn-check" name="budget" id="budget2" value="under_25">
+                                <label class="btn btn-outline-primary w-100 p-4 rounded-3 fw-bold" for="budget2">
+                                    <i class="fas fa-rupee-sign fa-2x mb-3 d-block"></i>
+                                    ₹15 - ₹25 Lakhs
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="radio" class="btn-check" name="budget" id="budget3" value="under_50">
+                                <label class="btn btn-outline-primary w-100 p-4 rounded-3 fw-bold" for="budget3">
+                                    <i class="fas fa-car-side fa-2x mb-3 d-block"></i>
+                                    Premium (> ₹25 L)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="text-end mt-4">
+                            <button type="button" class="btn btn-primary btn-lg px-5 btn-next rounded-pill">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step-container d-none" id="step2">
+                        <h3 class="fw-bold mb-4">2. What type of fuel do you prefer?</h3>
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <input type="radio" class="btn-check" name="fuel" id="fuel1" value="Petrol" required>
+                                <label class="btn btn-outline-primary w-100 p-4 rounded-3 fw-bold" for="fuel1">
+                                    <i class="fas fa-gas-pump fa-2x mb-3 d-block"></i>
+                                    Petrol
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="radio" class="btn-check" name="fuel" id="fuel2" value="Diesel">
+                                <label class="btn btn-outline-primary w-100 p-4 rounded-3 fw-bold" for="fuel2">
+                                    <i class="fas fa-oil-can fa-2x mb-3 d-block"></i>
+                                    Diesel
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="radio" class="btn-check" name="fuel" id="fuel3" value="Electric">
+                                <label class="btn btn-outline-primary w-100 p-4 rounded-3 fw-bold" for="fuel3">
+                                    <i class="fas fa-bolt fa-2x mb-3 d-block text-warning"></i>
+                                    Electric
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="radio" class="btn-check" name="fuel" id="fuel4" value="any">
+                                <label class="btn btn-outline-primary w-100 p-4 rounded-3 fw-bold" for="fuel4">
+                                    <i class="fas fa-random fa-2x mb-3 d-block"></i>
+                                    Any
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="button" class="btn btn-light btn-lg px-4 btn-prev rounded-pill"><i class="fas fa-arrow-left me-2"></i> Back</button>
+                            <button type="button" class="btn btn-primary btn-lg px-5 btn-next rounded-pill">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="step-container d-none" id="step3">
+                        <h3 class="fw-bold mb-4">3. What is your top priority?</h3>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <input type="radio" class="btn-check" name="priority" id="priority1" value="safety" required>
+                                <label class="btn btn-outline-primary w-100 p-4 rounded-3 fw-bold" for="priority1">
+                                    <i class="fas fa-shield-alt fa-2x mb-3 d-block text-success"></i>
+                                    Top Safety
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="radio" class="btn-check" name="priority" id="priority2" value="value">
+                                <label class="btn btn-outline-primary w-100 p-4 rounded-3 fw-bold" for="priority2">
+                                    <i class="fas fa-tags fa-2x mb-3 d-block text-danger"></i>
+                                    Value for Money
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="radio" class="btn-check" name="priority" id="priority3" value="performance">
+                                <label class="btn btn-outline-primary w-100 p-4 rounded-3 fw-bold" for="priority3">
+                                    <i class="fas fa-tachometer-alt fa-2x mb-3 d-block text-info"></i>
+                                    Performance
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="button" class="btn btn-light btn-lg px-4 btn-prev rounded-pill"><i class="fas fa-arrow-left me-2"></i> Back</button>
+                            <button type="submit" class="btn btn-success btn-lg px-5 rounded-pill"><i class="fas fa-search me-2"></i> Show My Matches</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const steps = [
+        document.getElementById('step1'),
+        document.getElementById('step2'),
+        document.getElementById('step3')
+    ];
+    let currentStep = 0;
+
+    const nextBtns = document.querySelectorAll('.btn-next');
+    const prevBtns = document.querySelectorAll('.btn-prev');
+
+    function showStep(index) {
+        steps.forEach((step, i) => {
+            if (i === index) {
+                step.classList.remove('d-none');
+                // Optional: add a tiny fade-in effect via CSS class if desired
+            } else {
+                step.classList.add('d-none');
+            }
+        });
+    }
+
+    nextBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Validation: Check if grouped radio buttons in current step have a selection
+            const radios = steps[currentStep].querySelectorAll('input[type="radio"]');
+            const checked = Array.from(radios).some(r => r.checked);
+            
+            if (!checked) {
+                alert("Please select an option to continue.");
+                return;
+            }
+            
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+    });
+
+    prevBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

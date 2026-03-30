@@ -1,0 +1,398 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load currency_tags %}
+
+{% block title %}{{ car.title }} — Vehicle Vault{% endblock %}
+{% block meta_description %}{{ car.brand }} {{ car.model }} {{ car.year }} – ₹{{ car.price|indian_lakhs }} ex-showroom. Full specs, comparison, EMI calculator and PDF quote.{% endblock %}
+
+{% block content %}
+<div class="container-vv py-4">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-vv mb-4">
+        <a href="{% url 'home' %}">Home</a>
+        <i class="fas fa-chevron-right" style="font-size:0.6rem;"></i>
+        <a href="{% url 'cars:car_list' %}">Browse Cars</a>
+        <i class="fas fa-chevron-right" style="font-size:0.6rem;"></i>
+        <span class="current">{{ car.title }}</span>
+    </div>
+
+    <div class="row gx-5">
+        <!-- ==================== MAIN COLUMN ==================== -->
+        <div class="col-lg-8 mb-4">
+
+            <!-- Image Gallery -->
+            <div class="detail-image-hero mb-3">
+                {% if car.images.all %}
+                <div id="carCarousel" class="carousel slide h-100" data-bs-ride="carousel">
+                    <div class="carousel-inner h-100">
+                        {% for img in car.images.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %} h-100">
+                            <img src="{{ img.image.url }}" class="d-block w-100 h-100" style="object-fit:cover;" alt="{{ car.title }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if car.images.count > 1 %}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="car-no-img h-100">
+                    <i class="fas fa-car fa-4x"></i>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Thumbnail Strip -->
+            {% if car.images.count > 1 %}
+            <div class="thumbnail-strip mb-4">
+                {% for img in car.images.all|slice:":4" %}
+                <div class="thumbnail-item {% if forloop.first %}active{% endif %}" onclick="switchImage({{ forloop.counter0 }}, this)">
+                    <img src="{{ img.image.url }}" alt="{{ car.title }}">
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Detail Tabs -->
+            <div class="detail-tabs mb-4">
+                <button class="detail-tab active" onclick="switchTab('overview', this)">Overview</button>
+                <button class="detail-tab" onclick="switchTab('specs', this)">Specifications</button>
+                <button class="detail-tab" onclick="switchTab('emi', this)">EMI Calculator</button>
+                <button class="detail-tab" onclick="switchTab('reviews', this)">Reviews</button>
+            </div>
+
+            <!-- Tab: Overview -->
+            <div id="tab-overview">
+                {% if car.description %}
+                <p style="color:var(--slate-600);font-size:1rem;line-height:1.75;margin-bottom:24px;">{{ car.description }}</p>
+                {% endif %}
+
+                <!-- Highlight Chips -->
+                <div class="highlight-chips">
+                    {% if car.specifications.fuel_type %}
+                    <div class="highlight-chip"><span>⛽</span> {{ car.specifications.fuel_type }}</div>
+                    {% endif %}
+                    {% if car.specifications.transmission %}
+                    <div class="highlight-chip"><span>⚙️</span> {{ car.specifications.transmission }}</div>
+                    {% endif %}
+                    {% if car.specifications.safety_rating %}
+                    <div class="highlight-chip"><span>⭐</span> {{ car.specifications.safety_rating }}-Star NCAP</div>
+                    {% endif %}
+                    {% if car.mileage %}
+                    <div class="highlight-chip"><span>🛣️</span> {{ car.mileage }} km/l</div>
+                    {% endif %}
+                    {% if car.specifications.seating_capacity %}
+                    <div class="highlight-chip"><span>👥</span> {{ car.specifications.seating_capacity }} Seats</div>
+                    {% endif %}
+                </div>
+
+                <!-- True Cost of Ownership -->
+                <div class="tco-card mt-4">
+                    <div class="tco-title">5-Year True Cost of Ownership</div>
+                    {% with price=car.price|floatformat:0 %}
+                    <div class="tco-row">
+                        <span class="tco-label">Base Price</span>
+                        <span class="tco-amount">₹{{ car.price|indian_lakhs }}</span>
+                    </div>
+                    <div class="tco-bar">
+                        <div class="tco-bar-fill" style="width: 100%;"></div>
+                    </div>
+                    <div class="tco-row">
+                        <span class="tco-label">Insurance (5 yr)</span>
+                        <span class="tco-amount">₹{{ car.price|floatformat:0|slice:":2" }}K approx.</span>
+                    </div>
+                    <div class="tco-bar">
+                        <div class="tco-bar-fill" style="width: 20%;"></div>
+                    </div>
+                    <div class="tco-row">
+                        <span class="tco-label">Maintenance (5 yr est.)</span>
+                        <span class="tco-amount">₹1–2.5 Lakh</span>
+                    </div>
+                    <div class="tco-bar">
+                        <div class="tco-bar-fill" style="width: 15%;"></div>
+                    </div>
+                    {% endwith %}
+                </div>
+            </div>
+
+            <!-- Tab: Specifications -->
+            <div id="tab-specs" style="display:none;">
+                <table class="specs-table" style="border-radius:16px;overflow:hidden;">
+                    <tbody>
+                        <tr><td>Brand</td><td>{{ car.brand }}</td></tr>
+                        <tr><td>Model</td><td>{{ car.model }}</td></tr>
+                        <tr><td>Year</td><td>{{ car.year }}</td></tr>
+                        <tr><td>Engine</td><td>{{ car.specifications.engine|default:"—" }}</td></tr>
+                        <tr><td>Fuel Type</td><td>{{ car.specifications.fuel_type|default:"—" }}</td></tr>
+                        <tr><td>Transmission</td><td>{{ car.specifications.transmission|default:"—" }}</td></tr>
+                        <tr><td>Mileage</td><td>{{ car.specifications.mileage|default:"—" }} {% if car.specifications.mileage %}km/l{% endif %}</td></tr>
+                        <tr><td>Power</td><td>{{ car.specifications.power|default:"—" }}</td></tr>
+                        <tr><td>Torque</td><td>{{ car.specifications.torque|default:"—" }}</td></tr>
+                        <tr><td>Seating</td><td>{{ car.specifications.seating_capacity|default:"—" }} Seats</td></tr>
+                        <tr><td>Boot Space</td><td>{{ car.specifications.boot_space|default:"—" }}</td></tr>
+                        <tr><td>Safety Rating</td>
+                        <td class="stars">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= car.specifications.safety_rating %}⭐{% else %}☆{% endif %}
+                            {% endfor %}
+                        </td></tr>
+                        <tr><td>ABS</td><td>{% if car.specifications.abs %}✅ Yes{% else %}—{% endif %}</td></tr>
+                        <tr><td>Airbags</td><td>{{ car.specifications.airbags|default:"—" }}</td></tr>
+                        <tr><td>Sunroof</td><td>{% if car.specifications.sunroof %}✅ Yes{% else %}—{% endif %}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tab: EMI Calculator -->
+            <div id="tab-emi" style="display:none;">
+                <div style="background:var(--surface-card);border-radius:20px;padding:32px;box-shadow:var(--shadow-card);">
+                    <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:24px;">EMI Calculator</h3>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label-vv">Loan Amount (₹)</label>
+                            <input type="number" id="emiPrincipal" class="form-control-vv" value="{{ car.price|floatformat:0 }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-vv">Tenure (Months)</label>
+                            <input type="number" id="emiTenure" class="form-control-vv" value="60">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label-vv">Interest Rate (%)</label>
+                            <input type="number" id="emiRate" class="form-control-vv" value="9" step="0.1">
+                        </div>
+                    </div>
+                    <button onclick="calcEMI()" class="btn-primary-vv mb-4">
+                        <i class="fas fa-calculator me-2" style="font-size:0.8rem;"></i>Calculate EMI
+                    </button>
+                    <div class="emi-card">
+                        <div>
+                            <div class="emi-label">Estimated Monthly EMI</div>
+                            <div class="emi-amount" id="emiResult">—</div>
+                        </div>
+                        <i class="fas fa-wallet" style="font-size:1.5rem;color:var(--primary-bright);opacity:0.5;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Reviews -->
+            <div id="tab-reviews" style="display:none;">
+                {% if car.reviews.exists %}
+                <div class="d-flex align-items-center gap-4 mb-4">
+                    <div>
+                        <div style="font-size:3rem;font-weight:900;letter-spacing:-0.04em;color:var(--slate-900);">{{ avg_rating|floatformat:1 }}</div>
+                        <div class="stars">
+                            {% for i in "12345" %}{% if forloop.counter <= avg_rating %}⭐{% else %}☆{% endif %}{% endfor %}
+                        </div>
+                        <div style="font-size:0.78rem;color:var(--slate-400);font-weight:600;">{{ car.reviews.count }} reviews</div>
+                    </div>
+                </div>
+                {% for review in car.reviews.all %}
+                <div style="background:var(--surface-card);border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:var(--shadow-card);">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div style="font-weight:700;font-size:0.9rem;color:var(--slate-900);">{{ review.author|default:"Anonymous" }}</div>
+                        <div class="stars" style="font-size:0.8rem;">
+                            {% for i in "12345" %}{% if forloop.counter <= review.rating %}⭐{% endif %}{% endfor %}
+                        </div>
+                    </div>
+                    <p style="color:var(--slate-600);font-size:0.88rem;margin:0;">{{ review.comment }}</p>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div style="text-align:center;padding:48px;color:var(--slate-400);">
+                    <i class="fas fa-star fa-2x mb-3" style="opacity:0.3;"></i>
+                    <div style="font-weight:700;margin-bottom:8px;">No reviews yet</div>
+                    <div style="font-size:0.85rem;">Be the first to review this vehicle.</div>
+                </div>
+                {% endif %}
+
+                <!-- Review Form -->
+                {% if user.is_authenticated %}
+                <div style="background:var(--surface-card);border-radius:20px;padding:28px;box-shadow:var(--shadow-card);margin-top:20px;">
+                    <h4 style="font-size:1rem;font-weight:800;margin-bottom:20px;">Write a Review</h4>
+                    <form method="post" action="{% url 'cars:car_detail' car.id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label-vv">Rating</label>
+                            <select name="rating" class="form-control-vv">
+                                <option value="5">⭐⭐⭐⭐⭐ — 5 Stars</option>
+                                <option value="4">⭐⭐⭐⭐ — 4 Stars</option>
+                                <option value="3">⭐⭐⭐ — 3 Stars</option>
+                                <option value="2">⭐⭐ — 2 Stars</option>
+                                <option value="1">⭐ — 1 Star</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label-vv">Your Review</label>
+                            <textarea name="comment" class="form-control-vv" rows="4" placeholder="Share your experience..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary-vv">Submit Review</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Accessories -->
+            {% if car.accessories.exists %}
+            <div class="mt-4">
+                <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:16px;">Accessories Available</h3>
+                <div style="background:var(--surface-card);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-card);">
+                    {% for acc in car.accessories.all %}
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--slate-100);">
+                        <span style="font-weight:600;font-size:0.9rem;color:var(--slate-700);">{{ acc.name }}</span>
+                        <span style="font-weight:800;font-size:0.88rem;color:var(--primary-bright);">₹{{ acc.price|indian_lakhs }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- ==================== SIDEBAR ==================== -->
+        <div class="col-lg-4">
+            <div class="detail-sidebar-card">
+                <div class="car-brand-badge mb-3">{{ car.brand }}</div>
+                <div class="detail-car-title">{{ car.title }}</div>
+                <div style="font-size:0.82rem;color:var(--slate-400);font-weight:600;margin-bottom:16px;">{{ car.year }} · {{ car.brand }}</div>
+                <div class="detail-car-price" id="car-price" data-price="{{ car.price }}">₹{{ car.price|indian_lakhs }}</div>
+                <div class="ex-showroom-label">Ex-Showroom Price</div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex flex-column gap-2 mb-3">
+                    <form action="{% url 'favorites:toggle_favorite' car.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-outline-vv w-100 py-2 justify-content-center">
+                            <i class="far fa-heart" style="font-size:0.85rem;"></i> Save to Wishlist
+                        </button>
+                    </form>
+                    <form action="{% url 'comparisons:add_compare' car.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-outline-vv w-100 py-2 justify-content-center">
+                            <i class="fas fa-scale-balanced" style="font-size:0.85rem;"></i> Add to Compare
+                        </button>
+                    </form>
+                    <a href="{% url 'cars:car_pdf_export' car.id %}" class="btn-primary-vv w-100 py-2 justify-content-center">
+                        <i class="fas fa-file-pdf" style="font-size:0.85rem;"></i> Download PDF Quotation
+                    </a>
+                </div>
+
+                <!-- EMI Card -->
+                <div class="emi-card">
+                    <div>
+                        <div class="emi-label">Est. Monthly EMI</div>
+                        <div class="emi-amount" id="sidebar-emi">Calculating...</div>
+                    </div>
+                    <i class="fas fa-wallet" style="font-size:1.2rem;color:var(--primary-bright);opacity:0.6;"></i>
+                </div>
+
+                <!-- Quick Specs -->
+                <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--slate-100);">
+                    <div style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;font-weight:700;color:var(--slate-400);margin-bottom:12px;">Quick Specs</div>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div style="background:var(--surface-low);border-radius:12px;padding:12px;text-align:center;">
+                                <div style="font-size:1.1rem;margin-bottom:4px;">⛽</div>
+                                <div style="font-size:0.72rem;color:var(--slate-400);font-weight:600;">FUEL</div>
+                                <div style="font-size:0.82rem;font-weight:800;color:var(--slate-900);">{{ car.specifications.fuel_type|default:"—" }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div style="background:var(--surface-low);border-radius:12px;padding:12px;text-align:center;">
+                                <div style="font-size:1.1rem;margin-bottom:4px;">⚙️</div>
+                                <div style="font-size:0.72rem;color:var(--slate-400);font-weight:600;">TRANS.</div>
+                                <div style="font-size:0.82rem;font-weight:800;color:var(--slate-900);">{{ car.specifications.transmission|default:"—" }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div style="background:var(--surface-low);border-radius:12px;padding:12px;text-align:center;">
+                                <div style="font-size:1.1rem;margin-bottom:4px;">🛣️</div>
+                                <div style="font-size:0.72rem;color:var(--slate-400);font-weight:600;">MILEAGE</div>
+                                <div style="font-size:0.82rem;font-weight:800;color:var(--slate-900);">{{ car.mileage|default:"—" }} km/l</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div style="background:var(--surface-low);border-radius:12px;padding:12px;text-align:center;">
+                                <div style="font-size:1.1rem;margin-bottom:4px;">👥</div>
+                                <div style="font-size:0.72rem;color:var(--slate-400);font-weight:600;">SEATING</div>
+                                <div style="font-size:0.82rem;font-weight:800;color:var(--slate-900);">{{ car.specifications.seating_capacity|default:"—" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Similar Cars -->
+            {% if related_cars %}
+            <div class="mt-4">
+                <div style="font-size:0.9rem;font-weight:800;letter-spacing:-0.01em;color:var(--slate-700);margin-bottom:12px;">
+                    <i class="fas fa-fire text-primary me-2" style="font-size:0.8rem;"></i>Similar Vehicles
+                </div>
+                {% for r_car in related_cars %}
+                <div class="card-car-vv mb-3 d-flex flex-row overflow-hidden" style="border-radius:14px !important;">
+                    {% if r_car.images.first %}
+                    <img src="{{ r_car.images.first.image.url }}" alt="{{ r_car.title }}" style="width:80px;height:70px;object-fit:cover;flex-shrink:0;">
+                    {% else %}
+                    <div style="width:80px;height:70px;background:var(--slate-100);display:grid;place-items:center;color:var(--slate-400);flex-shrink:0;">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    {% endif %}
+                    <div style="padding:10px 14px;flex:1;display:flex;flex-direction:column;justify-content:center;min-width:0;">
+                        <div style="font-size:0.82rem;font-weight:800;color:var(--slate-900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ r_car.title }}</div>
+                        <div style="font-size:0.78rem;font-weight:800;color:var(--primary-bright);">₹{{ r_car.price|indian_lakhs }}</div>
+                        <a href="{% url 'cars:car_detail' r_car.id %}" style="font-size:0.7rem;font-weight:700;color:var(--primary-bright);text-decoration:none;">View →</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Tab switching
+function switchTab(tab, btn) {
+    document.querySelectorAll('[id^="tab-"]').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.detail-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tab).style.display = 'block';
+    btn.classList.add('active');
+}
+
+// Image switching
+function switchImage(idx, el) {
+    const carousel = bootstrap.Carousel.getInstance(document.getElementById('carCarousel'));
+    if(carousel) carousel.to(idx);
+    document.querySelectorAll('.thumbnail-item').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+}
+
+// EMI Calculator
+function calcEMI() {
+    const P = parseFloat(document.getElementById('emiPrincipal').value);
+    const N = parseInt(document.getElementById('emiTenure').value);
+    const R = parseFloat(document.getElementById('emiRate').value) / 100 / 12;
+    const emi = (P * R * Math.pow(1+R, N)) / (Math.pow(1+R, N) - 1);
+    const formatted = '₹' + Math.round(emi).toLocaleString('en-IN') + '/mo';
+    document.getElementById('emiResult').textContent = formatted;
+}
+
+// Auto calculate sidebar EMI
+window.addEventListener('load', () => {
+    const price = parseFloat(document.getElementById('car-price')?.dataset.price || 0);
+    if(price > 0) {
+        const R = 0.09 / 12;
+        const N = 60;
+        const emi = Math.round((price * R * Math.pow(1+R, N)) / (Math.pow(1+R, N) - 1));
+        document.getElementById('sidebar-emi').textContent = '₹' + emi.toLocaleString('en-IN') + '/mo';
+        document.getElementById('emiPrincipal').value = price;
+    }
+});
+</script>
+{% endblock %}

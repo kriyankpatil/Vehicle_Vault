@@ -1,0 +1,212 @@
+<style>
+/* Chatbot Floating UI */
+.chatbot-bubble {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.2s;
+}
+
+.chatbot-bubble:hover {
+    transform: scale(1.1);
+}
+
+.chatbot-window {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 350px;
+    height: 450px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.chatbot-header {
+    background-color: #0d6efd;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.chatbot-body {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chat-msg {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.chat-bot {
+    align-self: flex-start;
+    background-color: #e9ecef;
+    color: #333;
+    border-bottom-left-radius: 0;
+}
+
+.chat-user {
+    align-self: flex-end;
+    background-color: #0d6efd;
+    color: white;
+    border-bottom-right-radius: 0;
+}
+
+.chatbot-input {
+    display: flex;
+    padding: 10px;
+    background-color: white;
+    border-top: 1px solid #ddd;
+}
+
+.chatbot-input input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 8px 15px;
+    outline: none;
+}
+
+.chatbot-input button {
+    background: none;
+    border: none;
+    color: #0d6efd;
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+</style>
+
+<!-- Bubble -->
+<div class="chatbot-bubble" id="chatBubble">
+    <i class="fas fa-comment-dots"></i>
+</div>
+
+<!-- Window -->
+<div class="chatbot-window" id="chatWindow">
+    <div class="chatbot-header">
+        <span><i class="fas fa-robot me-2"></i> Vault Assistant</span>
+        <i class="fas fa-times" style="cursor: pointer;" id="chatClose"></i>
+    </div>
+    <div class="chatbot-body" id="chatBody">
+        <div class="chat-msg chat-bot">
+            Hi! I'm the Vault Assistant. I can help recommend cars based on fuel type or budget. Simply type "Electric cars" or "SUVs under 20 lakhs".
+        </div>
+    </div>
+    <div class="chatbot-input">
+        <input type="text" id="chatField" placeholder="Ask me something..." autocomplete="off">
+        <button id="chatSend"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const bubble = document.getElementById('chatBubble');
+    const win = document.getElementById('chatWindow');
+    const closeBtn = document.getElementById('chatClose');
+    const sendBtn = document.getElementById('chatSend');
+    const field = document.getElementById('chatField');
+    const body = document.getElementById('chatBody');
+
+    bubble.addEventListener('click', () => {
+        win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
+        if(win.style.display === 'flex') field.focus();
+    });
+
+    closeBtn.addEventListener('click', () => {
+        win.style.display = 'none';
+    });
+
+    function appendMessage(text, sender) {
+        const msg = document.createElement('div');
+        msg.className = `chat-msg chat-${sender}`;
+        msg.innerHTML = text; // allow HTML for links
+        body.appendChild(msg);
+        body.scrollTop = body.scrollHeight;
+    }
+
+    async function sendMessage() {
+        const text = field.value.trim();
+        if (!text) return;
+        
+        appendMessage(text, 'user');
+        field.value = '';
+
+        // loading indicator
+        const loadingId = 'loading-' + Date.now();
+        const loadingMsg = document.createElement('div');
+        loadingMsg.className = 'chat-msg chat-bot';
+        loadingMsg.id = loadingId;
+        loadingMsg.innerHTML = '<i class="fas fa-ellipsis-h fa-fade"></i>';
+        body.appendChild(loadingMsg);
+        body.scrollTop = body.scrollHeight;
+
+        try {
+            const response = await fetch('/api/chatbot/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken') // ensure csrf exists if required, though we didn't enforce it via API yet
+                },
+                body: JSON.stringify({ message: text })
+            });
+            const data = await response.json();
+            document.getElementById(loadingId).remove();
+            appendMessage(data.reply, 'bot');
+        } catch (e) {
+            document.getElementById(loadingId).remove();
+            appendMessage("Sorry, I'm having trouble connecting to the server.", 'bot');
+        }
+    }
+
+    field.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+    sendBtn.addEventListener('click', sendMessage);
+
+    // Get CSRF Token utility (standard Django snippet)
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
+</script>

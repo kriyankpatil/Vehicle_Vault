@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm rounded-4 p-5">
+                <i class="fas fa-exclamation-triangle fa-3x text-danger mb-4"></i>
+                <h2 class="fw-bold mb-3">Invalid Link</h2>
+                <p class="text-muted mb-4">The activation link is invalid, maybe because it has already been used or has expired.</p>
+                <a href="{% url 'register' %}" class="btn btn-primary rounded-pill px-4">Try Registering Again</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

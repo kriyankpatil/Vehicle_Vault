@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Quotation - {{ car.title }}</title>
+<style>
+    @page {
+        size: a4 portrait;
+        margin: 2cm;
+    }
+    body {
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #333333;
+        line-height: 1.5;
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #1a1a1a;
+        padding-bottom: 10px;
+    }
+    .header h1 {
+        margin: 0;
+        color: #1a1a1a;
+        font-size: 24px;
+    }
+    .header p {
+        margin: 5px 0 0 0;
+        color: #666;
+    }
+    .section-title {
+        background-color: #f8f9fa;
+        color: #333;
+        padding: 8px;
+        font-weight: bold;
+        border-left: 4px solid #0d6efd;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+    th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+        width: 40%;
+    }
+    .price {
+        font-size: 18px;
+        color: #0d6efd;
+        font-weight: bold;
+    }
+    .footer {
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        text-align: center;
+        font-size: 10px;
+        color: #999;
+        border-top: 1px solid #ddd;
+        padding-top: 5px;
+    }
+</style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Vehicle Vault</h1>
+        <p>Official Vehicle Quotation Breakdown</p>
+    </div>
+
+    <p><strong>Date:</strong> {% now "jS F Y H:i" %}</p>
+    
+    <div class="section-title">Vehicle Information</div>
+    <table>
+        <tr>
+            <th>Brand</th>
+            <td>{{ car.brand }}</td>
+        </tr>
+        <tr>
+            <th>Model</th>
+            <td>{{ car.model }}</td>
+        </tr>
+        <tr>
+            <th>Year</th>
+            <td>{{ car.year }}</td>
+        </tr>
+        <tr>
+            <th>Fuel Type</th>
+            <td>{% if specs %}{{ specs.fuel_type }}{% else %}N/A{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Transmission</th>
+            <td>{% if specs %}{{ specs.transmission }}{% else %}N/A{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Engine</th>
+            <td>{% if specs %}{{ specs.engine }}{% else %}N/A{% endif %}</td>
+        </tr>
+    </table>
+
+    <div class="section-title">Estimated Cost Breakdown (First Year)</div>
+    {% load currency_tags %}
+    <table>
+        <tr>
+            <th>Base Ex-Showroom Price</th>
+            <td class="price">₹ {{ base_price|indian_lakhs }}</td>
+        </tr>
+        <tr>
+            <th>Estimated 1-Year Insurance (4%)</th>
+            <td>₹ {{ insurance_estimate|indian_lakhs }}</td>
+        </tr>
+        <tr>
+            <th>Est. Monthly Payment (5-year Loan @ 9%)</th>
+            <td>Approx Rs. {% widthratio base_price 100 2 %} / month</td>
+        </tr>
+    </table>
+
+    <div class="section-title">Notes & Disclaimers</div>
+    <p style="font-size: 12px; color: #666;">
+        This document represents an automated estimation. Prices are Ex-Showroom and do not include exact RTO taxes, state-specific registration fees, or dealer-level accessories. Final on-road prices may vary considerably based on the city of registration in India. 
+        <br><br>
+        Thank you for using the <strong>Vehicle Vault Platform</strong>.
+    </p>
+
+    <div class="footer">
+        Generated precisely by Vehicle Vault
+    </div>
+
+    <script>
+        window.onload = function() {
+            window.print();
+        };
+    </script>
+</body>
+</html>

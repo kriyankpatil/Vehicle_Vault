@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load currency_tags %}
+
+{% block title %}Vehicle Vault — Find Your Perfect Drive in India{% endblock %}
+
+{% block content %}
+<!-- ================================
+     HERO SECTION
+================================ -->
+<section class="hero-section" style="margin-top: -80px;">
+    <!-- Background Layer -->
+    <div class="hero-bg-container">
+        <img 
+            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+            alt="Premium car background" 
+            class="hero-image"
+        >
+        <div class="hero-overlay"></div>
+    </div>
+
+    <div class="container-vv">
+        <div class="hero-content">
+            <!-- Badge -->
+            <div class="hero-badge">
+                <i class="fas fa-sparkles text-primary-bright"></i>
+                Premium Experience · 100+ Curated Vehicles
+            </div>
+
+            <!-- Title -->
+            <h1 class="hero-title">
+                Find Your Perfect<br><span class="accent">Drive in India</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="hero-subtitle">
+                Compare technical specifications, real-time pricing, and cinematic visuals of your next vehicle from India's top automotive brands.
+            </p>
+
+            <!-- Floating Search -->
+            <div class="hero-search-wrapper">
+                <form action="{% url 'cars:car_list' %}" method="get">
+                    <div class="hero-search-glass">
+                        <i class="fas fa-search ms-3 me-2" style="color:rgba(255,255,255,0.4); font-size: 1.1rem;"></i>
+                        <input type="text" name="brand" placeholder="Search by brand (e.g. Tata, Kia, Hyundai)..." autocomplete="off">
+                        <button type="submit" class="btn-primary-vv" style="padding: 12px 32px;">
+                            Search <i class="fas fa-chevron-right ms-2" style="font-size:0.8rem;"></i>
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Smart Match Sub-action -->
+                <div class="mt-4 ps-2">
+                    <a href="{% url 'smart_match' %}" class="smart-match-cta">
+                        <i class="fas fa-microchip me-2"></i>
+                        AI Smart Match: Find your car in seconds
+                        <span class="arrow ms-2"><i class="fas fa-arrow-right" style="font-size:0.8rem;"></i></span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Metrics -->
+            <div class="hero-metrics">
+                <div class="metric-item">
+                    <span class="metric-value">100+</span>
+                    <span class="metric-label">Vehicles</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">22</span>
+                    <span class="metric-label">Leading Brands</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">Free</span>
+                    <span class="metric-label">Premium Tools</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================================
+     FEATURED VEHICLES
+================================ -->
+<section class="container-vv pb-5">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="dot"></span>
+            Featured Vehicles
+        </h2>
+        <a href="{% url 'cars:car_list' %}" class="btn-ghost-vv">
+            View All <i class="fas fa-arrow-right ms-1" style="font-size:0.8rem;"></i>
+        </a>
+    </div>
+
+    <div class="row g-4">
+        {% for car in featured_cars %}
+        <div class="col-md-4">
+            <div class="card-car-vv h-100">
+                <div class="position-relative">
+                    {% if car.images.first %}
+                    <div class="car-img-wrap">
+                        <img src="{{ car.images.first.image.url }}" alt="{{ car.title }}">
+                    </div>
+                    {% else %}
+                    <div class="car-no-img">
+                        <i class="fas fa-car fa-3x"></i>
+                    </div>
+                    {% endif %}
+                    <!-- Badges -->
+                    <div class="badge-abs">
+                        {% for badge in car.get_badges %}
+                        <span class="badge-vv
+                            {% if 'EV' in badge.text or 'Electric' in badge.text %}badge-ev
+                            {% elif 'NEW' in badge.text or 'New' in badge.text %}badge-new
+                            {% else %}badge-featured{% endif %}
+                        ">{{ badge.text }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="car-brand-badge">{{ car.brand }}</div>
+                    <div class="car-name">{{ car.title }}</div>
+                    <div class="car-meta">{{ car.year }}</div>
+                    <div class="car-price">₹{{ car.price|indian_lakhs }}</div>
+                    <div class="car-specs-row">
+                        <span class="car-spec-chip">
+                            <i class="fas fa-gas-pump" style="color:#0f62fe;font-size:0.7rem;"></i>
+                            {{ car.specifications.fuel_type|default:"N/A" }}
+                        </span>
+                        <span class="car-spec-chip">
+                            <i class="fas fa-tachometer-alt" style="color:#0f62fe;font-size:0.7rem;"></i>
+                            {{ car.mileage }} km/l
+                        </span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="{% url 'cars:car_detail' car.id %}" class="btn-primary-vv flex-grow-1 justify-content-center" style="font-size:0.85rem;padding:9px 16px;">
+                        View Details
+                    </a>
+                    <form action="{% url 'favorites:toggle_favorite' car.id %}" method="post" class="m-0">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-icon" title="Save"><i class="far fa-heart"></i></button>
+                    </form>
+                    <form action="{% url 'comparisons:add_compare' car.id %}" method="post" class="m-0">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-icon" title="Compare"><i class="fas fa-scale-balanced"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="fas fa-car fa-3x mb-3" style="color:#c3c6d8;"></i>
+            <p style="color:#94a3b8;">No featured cars yet. Check back soon!</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- ================================
+     BROWSE BY FUEL TYPE
+================================ -->
+<section style="background: var(--surface-low); padding: 64px 0; margin: 0;">
+    <div class="container-vv">
+        <div class="section-header">
+            <h2 class="section-title"><span class="dot"></span>Browse by Fuel Type</h2>
+        </div>
+        <div class="row g-3">
+            <!-- Fuel Type Cards -->
+
+            <div class="col-6 col-md-2">
+                <a href="{% url 'cars:car_list' %}?fuel_type=Petrol" class="text-decoration-none">
+                    <div style="background:var(--surface-card);border-radius:16px;padding:24px 20px;text-align:center;box-shadow:var(--shadow-card);transition:var(--transition-lift);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                        <div style="font-size:1.8rem;margin-bottom:10px;">⛽</div>
+                        <div style="font-weight:800;font-size:0.9rem;color:var(--slate-900);">Petrol</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-2">
+                <a href="{% url 'cars:car_list' %}?fuel_type=Diesel" class="text-decoration-none">
+                    <div style="background:var(--surface-card);border-radius:16px;padding:24px 20px;text-align:center;box-shadow:var(--shadow-card);transition:var(--transition-lift);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                        <div style="font-size:1.8rem;margin-bottom:10px;">🛢️</div>
+                        <div style="font-weight:800;font-size:0.9rem;color:var(--slate-900);">Diesel</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-2">
+                <a href="{% url 'cars:car_list' %}?fuel_type=Electric" class="text-decoration-none">
+                    <div style="background:var(--surface-card);border-radius:16px;padding:24px 20px;text-align:center;box-shadow:var(--shadow-card);transition:var(--transition-lift);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                        <div style="font-size:1.8rem;margin-bottom:10px;">⚡</div>
+                        <div style="font-weight:800;font-size:0.9rem;color:var(--slate-900);">Electric</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-2">
+                <a href="{% url 'cars:car_list' %}?fuel_type=Hybrid" class="text-decoration-none">
+                    <div style="background:var(--surface-card);border-radius:16px;padding:24px 20px;text-align:center;box-shadow:var(--shadow-card);transition:var(--transition-lift);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                        <div style="font-size:1.8rem;margin-bottom:10px;">🌿</div>
+                        <div style="font-weight:800;font-size:0.9rem;color:var(--slate-900);">Hybrid</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-2">
+                <a href="{% url 'cars:car_list' %}?fuel_type=CNG" class="text-decoration-none">
+                    <div style="background:var(--surface-card);border-radius:16px;padding:24px 20px;text-align:center;box-shadow:var(--shadow-card);transition:var(--transition-lift);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                        <div style="font-size:1.8rem;margin-bottom:10px;">💨</div>
+                        <div style="font-weight:800;font-size:0.9rem;color:var(--slate-900);">CNG</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-6 col-md-2">
+                <a href="{% url 'smart_match' %}" class="text-decoration-none">
+                    <div style="background:linear-gradient(135deg,#004ccd,#0f62fe);border-radius:16px;padding:24px 20px;text-align:center;box-shadow:0 8px 24px rgba(15,98,254,0.3);transition:var(--transition-lift);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+                        <div style="font-size:1.8rem;margin-bottom:10px;">✨</div>
+                        <div style="font-weight:800;font-size:0.9rem;color:#fff;">Smart Match</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================================
+     WHY VEHICLE VAULT
+================================ -->
+<section class="container-vv py-5 my-3">
+    <div class="section-header mb-4">
+        <h2 class="section-title"><span class="dot"></span>Why Choose Vehicle Vault?</h2>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div style="background:var(--surface-card);border-radius:20px;padding:32px;box-shadow:var(--shadow-card);">
+                <div style="width:52px;height:52px;background:rgba(15,98,254,0.1);border-radius:14px;display:grid;place-items:center;margin-bottom:20px;font-size:1.3rem;color:#0f62fe;">
+                    <i class="fas fa-scale-balanced"></i>
+                </div>
+                <h3 style="font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:8px;">Side-by-Side Compare</h3>
+                <p style="font-size:0.88rem;color:var(--slate-500);margin:0;">Compare any 3 cars simultaneously on specs, price, features and true cost of ownership.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div style="background:var(--surface-card);border-radius:20px;padding:32px;box-shadow:var(--shadow-card);">
+                <div style="width:52px;height:52px;background:rgba(139,92,246,0.1);border-radius:14px;display:grid;place-items:center;margin-bottom:20px;font-size:1.3rem;color:#7c3aed;">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <h3 style="font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:8px;">PDF Quotation</h3>
+                <p style="font-size:0.88rem;color:var(--slate-500);margin:0;">Generate a printable, professional quotation with full cost breakdown for any vehicle.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div style="background:var(--surface-card);border-radius:20px;padding:32px;box-shadow:var(--shadow-card);">
+                <div style="width:52px;height:52px;background:rgba(16,185,129,0.1);border-radius:14px;display:grid;place-items:center;margin-bottom:20px;font-size:1.3rem;color:#059669;">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 style="font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:8px;">AI Assistant</h3>
+                <p style="font-size:0.88rem;color:var(--slate-500);margin:0;">Chat with our smart assistant to find the perfect car based on your needs and budget.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

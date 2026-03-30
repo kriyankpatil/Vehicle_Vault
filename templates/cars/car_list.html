@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Browse Cars — Vehicle Vault{% endblock %}
+
+{% block content %}
+<div class="container-vv py-4">
+
+    <!-- Page Header -->
+    <div class="page-header mb-4">
+        <div>
+            <h1 class="page-header-title mb-1">
+                Browse Cars
+                <span class="result-count-badge">{{ paginator.count }} vehicles</span>
+            </h1>
+            <p style="color:var(--slate-400);font-size:0.88rem;margin:0;">
+                Explore India's top cars — filtered, compared & priced in Lakhs.
+            </p>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+            {% if request.GET %}
+            <a href="{% url 'cars:car_list' %}" class="btn-ghost-vv px-3 py-2">
+                <i class="fas fa-times me-1" style="font-size:0.75rem;"></i> Clear Filters
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row gx-4">
+        <!-- ==================== SIDEBAR FILTERS ==================== -->
+        <div class="col-lg-3">
+            <div class="filter-panel">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="filter-title"><i class="fas fa-sliders-h text-primary me-2"></i>Filters</span>
+                    <a href="{% url 'cars:car_list' %}" style="font-size:0.78rem;font-weight:700;color:var(--primary-bright);text-decoration:none;">Reset All</a>
+                </div>
+
+                <form method="get" id="filterForm">
+                    <!-- Sort -->
+                    <div class="filter-section-label">Sort By</div>
+                    <select name="sort" class="form-select form-select-sm mb-3" onchange="this.form.submit()" style="border-radius:10px;border-color:var(--slate-200);font-size:0.85rem;font-weight:600;">
+                        <option value="">Newest First</option>
+                        <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price: Low → High</option>
+                        <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price: High → Low</option>
+                        <option value="year_desc" {% if request.GET.sort == 'year_desc' %}selected{% endif %}>Latest Year</option>
+                    </select>
+
+                    <!-- Filter form from django-filters -->
+                    {% for field in filter.form %}
+                    {% if field.name != 'sort' %}
+                    <div class="filter-section-label">{{ field.label }}</div>
+                    {{ field }}
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="d-grid mt-4 gap-2">
+                        <button type="submit" class="btn-primary-vv justify-content-center py-2">
+                            <i class="fas fa-search me-2" style="font-size:0.8rem;"></i>Apply Filters
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ==================== CAR GRID ==================== -->
+        <div class="col-lg-9" id="car-grid-container">
+            <!-- Active Filters Tags -->
+            {% if request.GET %}
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                {% for key, val in request.GET.items %}
+                {% if val and key != 'page' and key != 'sort' %}
+                <span style="display:inline-flex;align-items:center;gap:6px;background:var(--primary-soft);color:var(--primary-bright);border:1.5px solid rgba(15,98,254,0.2);border-radius:9999px;padding:5px 12px;font-size:0.78rem;font-weight:700;">
+                    {{ val }}
+                    <a href="?" style="color:var(--primary-bright);text-decoration:none;font-weight:900;line-height:1;">&times;</a>
+                </span>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="row" id="car-grid-inner">
+                {% include 'partials/car_grid.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Style the django-filter form fields to match our design
+document.querySelectorAll('#filterForm input[type="text"], #filterForm input[type="number"], #filterForm select').forEach(el => {
+    el.style.borderRadius = '10px';
+    el.style.borderColor = 'var(--slate-200)';
+    el.style.fontSize = '0.85rem';
+    el.style.marginBottom = '8px';
+    el.style.width = '100%';
+    el.classList.add('form-control', 'form-control-sm');
+});
+
+function loadPage(page) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', page);
+    window.history.pushState({}, '', url);
+    fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' }})
+        .then(r => r.text())
+        .then(html => {
+            document.getElementById('car-grid-inner').innerHTML = html;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+}
+</script>
+{% endblock %}
